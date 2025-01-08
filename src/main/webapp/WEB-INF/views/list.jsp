@@ -6,9 +6,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-ServletContext context = getServletContext();
-String dbUser = context.getInitParameter("dbUser");
-String dbPass = context.getInitParameter("dbPass");
+List<GuestbookVo> list = (List<GuestbookVo>)request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -20,8 +18,8 @@ String dbPass = context.getInitParameter("dbPass");
 </head>
 <body>
 <div class="container mt-5">
-	<h1 class="mb-3">방명록 (Model 1)</h1>
-    <form action="add.jsp" method="POST">
+	<h1 class="mb-3">방명록 (Model 2)</h1>
+    <form action="<%= request.getContextPath() %>/gb" method="POST">
         <div class="mb-3">
             <label for="name" class="form-label">이름</label>
             <input type="text" class="form-control" id="name" name="name">
@@ -39,29 +37,23 @@ String dbPass = context.getInitParameter("dbPass");
         </div>
     </form>
     <br/>
-
-<%
-GuestbookDao dao = new GuestbookDaoImpl(dbUser, dbPass);
-List<GuestbookVo> list = dao.getList();
-%>
-<% Iterator<GuestbookVo> it = list.iterator(); 
-            while (it.hasNext()) {
-            	GuestbookVo vo = it.next();
-        %>
+    
+     <%
+     for (GuestbookVo vo: list) {
+     %>
     <div class="card mb-3">
         <div class="card-header">
-        
             <span>[<%= vo.getNo() %>]</span> <%= vo.getName() %> <span class="text-muted"><%= vo.getRegDate() %></span>
-            <a href="deleteform.jsp?no=<%= vo.getNo() %>" class="btn btn-danger btn-sm float-end">삭제</a>
+            <a href="<%= request.getContextPath() %>/gb?a=deleteform&no=<%= vo.getNo() %>" class="btn btn-danger btn-sm float-end">삭제</a>
         </div>
         
         <div class="card-body">
             <p class="card-text"><%= vo.getContent() %></p>
         </div>
-    </div>  
+    </div>    
     <%
-	}
-	%>     
+     }
+    %>  
 </div>
 
 

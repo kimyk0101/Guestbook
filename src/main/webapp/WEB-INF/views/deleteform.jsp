@@ -1,3 +1,5 @@
+<%@page import="learnbyteaching.guestbook.vo.GuestbookVo"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,16 +12,17 @@
 </head>
 <body>
 <div class="container mt-5">
-	<h1 class="mb-3">삭제 폼 (Model 1)</h1>
-    <form method="post" action="delete.jsp">
-        <input type='hidden' name="no" value="<%= request.getParameter("no") %>">		<!-- 오류 원인: 이 부분 작성 x -->
+	<h1 class="mb-3">삭제 폼 (Model 2)</h1>
+    <form method="post" action="<%= request.getContextPath() %>/gb">
+    	<input type="hidden" name="a" value="delete" />
+        <input type='hidden' name="no" value="<%= request.getParameter("no") %>">		
         <div class="mb-3">
             <label for="password" class="form-label">비밀번호</label>
             <input type="password" class="form-control" id="password" name="password">
         </div>
         <div class="d-flex justify-content-between">
             <button type="submit" class="btn btn-primary">확인</button>
-            <a href="list.jsp" class="btn btn-secondary">메인으로 돌아가기</a>
+            <a href="<%= request.getContextPath() %>/gb" class="btn btn-secondary">메인으로 돌아가기</a>
         </div>
     </form>
 </div>
