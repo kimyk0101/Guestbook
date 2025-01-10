@@ -5,9 +5,10 @@
 <%@page import="learnbyteaching.guestbook.dao.GuestbookDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%--
 List<GuestbookVo> list = (List<GuestbookVo>)request.getAttribute("list");
-%>
+--%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -19,7 +20,7 @@ List<GuestbookVo> list = (List<GuestbookVo>)request.getAttribute("list");
 <body>
 <div class="container mt-5">
 	<h1 class="mb-3">방명록 (Model 2)</h1>
-    <form action="<%= request.getContextPath() %>/gb" method="POST">
+    <form method="POST" action="<c:url value='/gb' />">
         <div class="mb-3">
             <label for="name" class="form-label">이름</label>
             <input type="text" class="form-control" id="name" name="name">
@@ -38,22 +39,24 @@ List<GuestbookVo> list = (List<GuestbookVo>)request.getAttribute("list");
     </form>
     <br/>
     
-     <%
+     <%--
      for (GuestbookVo vo: list) {
-     %>
+     --%>
+    <c:forEach items="${list }" var="vo">
     <div class="card mb-3">
         <div class="card-header">
-            <span>[<%= vo.getNo() %>]</span> <%= vo.getName() %> <span class="text-muted"><%= vo.getRegDate() %></span>
-            <a href="<%= request.getContextPath() %>/gb?a=deleteform&no=<%= vo.getNo() %>" class="btn btn-danger btn-sm float-end">삭제</a>
+            <span>[${vo.no }]</span> ${vo.name } <span class="text-muted">${vo.regDate }</span>
+           	<a href="<c:url value='/gb?a=deleteform&no=${vo.no}' />" class="btn btn-danger btn-sm float-end">삭제</a>
         </div>
         
         <div class="card-body">
-            <p class="card-text"><%= vo.getContent() %></p>
+            <p class="card-text">${vo.content }</p>
         </div>
-    </div>    
-    <%
+    </div>
+    </c:forEach>    
+    <%--
      }
-    %>  
+    --%>  
 </div>
 
 

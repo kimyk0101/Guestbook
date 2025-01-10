@@ -2,6 +2,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -13,16 +14,16 @@
 <body>
 <div class="container mt-5">
 	<h1 class="mb-3">삭제 폼 (Model 2)</h1>
-    <form method="post" action="<%= request.getContextPath() %>/gb">
+    <form method="post" action="<c:url value="/gb" />">
     	<input type="hidden" name="a" value="delete" />
-        <input type='hidden' name="no" value="<%= request.getParameter("no") %>">		
+        <input type='hidden' name="no" value="${no }">		
         <div class="mb-3">
             <label for="password" class="form-label">비밀번호</label>
             <input type="password" class="form-control" id="password" name="password">
         </div>
         <div class="d-flex justify-content-between">
             <button type="submit" class="btn btn-primary">확인</button>
-            <a href="<%= request.getContextPath() %>/gb" class="btn btn-secondary">메인으로 돌아가기</a>
+            <a href="<c:url value="/gb" />" class="btn btn-secondary">메인으로 돌아가기</a>
         </div>
     </form>
 </div>
