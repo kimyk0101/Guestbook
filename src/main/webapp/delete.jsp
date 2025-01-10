@@ -16,3 +16,4 @@ dao.delete(no, password);									//	오류 원인 (작성 잘못됨)
 		
 response.sendRedirect("list.jsp");
 %>
+
